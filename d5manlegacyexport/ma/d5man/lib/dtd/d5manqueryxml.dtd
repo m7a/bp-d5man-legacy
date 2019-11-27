@@ -1,0 +1,71 @@
+<!--
+	Ma_Sys.ma D5man Query XML DTD 1.0.0, Copyright (c) 2015, 2019 Ma_Sys.ma.
+	For further info send an e-mail to Ma_Sys.ma@web.de.
+-->
+
+<!ELEMENT tables (conf?, downloads?, pages?)>
+
+<!ELEMENT conf (io_provider_commands, io_roots)>
+<!ATTLIST conf io_compl_a      CDATA #REQUIRED>
+<!ATTLIST conf io_compl_b      CDATA #REQUIRED>
+<!ATTLIST conf vim             CDATA #REQUIRED>
+<!ATTLIST conf vim_plugin      CDATA #REQUIRED>
+<!ATTLIST conf common_res      CDATA #REQUIRED>
+<!ATTLIST conf dbloc_real      CDATA #REQUIRED>
+<!ATTLIST conf io_resolver     CDATA #REQUIRED>
+<!ATTLIST conf db_sync         CDATA #REQUIRED>
+<!ATTLIST conf d5man2xml       CDATA #REQUIRED>
+<!ATTLIST conf media_converter CDATA #REQUIRED>
+
+<!ELEMENT io_provider_commands (io_provider)*>
+
+<!ELEMENT io_provider EMPTY>
+<!ATTLIST io_provider section  CDATA #REQUIRED>
+<!ATTLIST io_provider name_pre CDATA #REQUIRED>
+<!ATTLIST io_provider cmd_pre  CDATA #REQUIRED>
+
+<!ELEMENT io_roots (io_root)*>
+
+<!ELEMENT io_root EMPTY>
+<!ATTLIST io_root v CDATA #REQUIRED>
+
+<!ELEMENT pages (page)*>
+
+<!ELEMENT page (tags?, attachments?, downloads?)>
+<!ATTLIST page section         CDATA   #REQUIRED>
+<!ATTLIST page name            CDATA   #REQUIRED>
+<!--<!ATTLIST page description     CDATA   #REQUIRED>-->
+<!ATTLIST page expires         CDATA   #IMPLIED>
+<!ATTLIST page modified        CDATA   #REQUIRED>
+<!ATTLIST page lang            CDATA   #REQUIRED>
+<!ATTLIST page compliance      (public | informal | prerelease | internal
+					| personal | confidential | restricted
+					| secret | qqv | qqvx) #REQUIRED>
+<!ATTLIST page location        CDATA   #IMPLIED>
+<!ATTLIST page md5             CDATA   #IMPLIED>
+<!ATTLIST page web_priority    CDATA   "0.4">
+<!ATTLIST page web_freq        (always | hourly | daily | weekly
+					| monthly | yearly | never) "monthly">
+
+<!ELEMENT tags (tag+)>
+<!ELEMENT tag EMPTY>
+<!ATTLIST tag v CDATA #REQUIRED>
+
+<!ELEMENT attachments (attachment+)>
+<!ELEMENT attachment EMPTY>
+<!ATTLIST attachment name      CDATA   #REQUIRED>
+<!ATTLIST attachment modified  CDATA   #REQUIRED>
+<!ATTLIST attachment md5       CDATA   #IMPLIED>
+
+<!ELEMENT downloads (download)*>
+<!ELEMENT download EMPTY>
+<!ATTLIST download url         CDATA   #REQUIRED>
+<!ATTLIST download name        NMTOKEN #REQUIRED>
+<!ATTLIST download description CDATA   #REQUIRED>
+<!-- newly required in order to be able to link to original pages -->
+<!ATTLIST download for_section CDATA   #REQUIRED>
+<!ATTLIST download for_name    CDATA   #REQUIRED>
+<!ATTLIST download version     CDATA   #IMPLIED>
+<!ATTLIST download size        CDATA   #IMPLIED> <!-- in KiB -->
+<!ATTLIST download checked     CDATA   #IMPLIED>
+<!ATTLIST download sha256      CDATA   #IMPLIED>

@@ -1,0 +1,21 @@
+DirectoryIndex index.xhtml
+ErrorDocument 404 /31/web_404.xhtml
+
+AddType application/x-httpd-php .xhtml
+AddCharset UTF-8 .xhtml
+
+php_flag short_open_tag off
+php_value default_mimetype "application/xhtml+xml"
+php_value default_charset UTF-8
+php_flag display_startup_errors off
+php_flag display_errors off
+php_flag html_errors off
+php_flag log_errors on
+php_value output_buffering 4096
+
+php_value error_log /home/webpages/lima-city/masysma/html/internal/data/php.txt
+
+<Files _*>
+	Order allow,deny
+	Deny from all
+</Files>

@@ -1,0 +1,273 @@
+%---------------------------------------------------------------------[ Meta ]--
+
+% Ma_Sys.ma D5Man LaTeX Export Template 1.0.9
+% Copyright (c) 2015, 2016, 2017, 2018, 2019 Ma_Sys.ma.
+% For further info send an e-mail to Ma_Sys.ma@web.de.
+
+\documentclass[paper=a4,DIV9,12pt,abstracton,headings=normal,
+						captions=tableheading]{scrreprt}
+
+% External configuration
+% Declare \def\notoc{1} to disable ToC (for one-page-exports)
+
+%-------------------------------------------------------[ Package Inclusions ]--
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,german,ngerman]{babel} % greek
+\usepackage[english,german]{fancyref}
+\usepackage[german]{keystroke}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{kpfonts}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{dashbox}  % \dbox
+% TODO z A WORKAROUND TO PREVENT THINGS LIKE INDENTED PARAGRAPH AFTER LIST. WE JUST DISABLE THEM ALL. IT WOULD BE BETTER IF IT WERE POSSIBLE TO RE-ENABLE INDENTED PARAGRAPHS FOR ALL THE PLACES WE WANT THEM AND KEEP THEM DISABLED BETWEEN OTHER ``OBJECTS''
+\usepackage{parskip}
+\usepackage{wasysym}   % smileys
+\usepackage{eurosym}   % €
+\usepackage{rotating}  % sidewaystable
+\usepackage{multicol}  % \begin{multicols}{2} ... \end{multicols}
+\usepackage{multirow}
+\usepackage{amssymb}   % \checkmark
+\usepackage{semantic}  % $\inference[...]{...}{...} for type rules and such.
+%\usepackage{textalpha} % greek text
+%\usepackage{paralist}  % compactenum / compactitem
+\usepackage{etoolbox}  % ifdefempty etc.
+\usepackage{scrpage2}  % header/footer
+\usepackage{mathtools} % \mathclap
+\usepackage{bbold}     % Make \mathbb{1} work.
+\usepackage{listings}
+\usepackage{enumitem}  % robustness, description nl after title
+\usepackage{microtype} % \_ load at the end
+\usepackage{hyperref}  % /
+
+%----------------------------------------------------[ Package Configuration ]--
+
+\makeindex
+\hypersetup{final}
+
+\DeclareUnicodeCharacter{2026}{{\dots}}
+\DeclareUnicodeCharacter{0271}{{$^1$}}
+
+\usetikzlibrary{%
+	matrix,fadings,calc,positioning,decorations.pathreplacing,%
+	decorations.text,arrows%
+}
+
+% Listings configuration
+\lstset{%
+	tabsize=8,columns=fixed,keepspaces,breaklines=true,inputencoding=utf8,%
+	basicstyle=\scriptsize\ttfamily,showspaces=false,%
+	showstringspaces=false,showtabs=false,extendedchars=true,%
+}
+% See https://groups.google.com/forum/?hl=de&fromgroups=
+% 					#!topic/de.comp.text.tex/Fb4EV8Za5xw
+\lstset{%
+	literate={ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1 {Ä}{{\"A}}1 {Ö}{{\"O}}1 %
+	{Ü}{{\"U}}1 {ß}{{\ss}}1 {¹}{{${}^1$}}1 {²}{{${}^2$}}1 {³}{{${}^3$}}1 %
+	{é}{{\'e}}1 {Θ}{{\textTheta}}1 {Ω}{{\textOmega}}1 {ó}{{\'o}}1 %
+	{…}{{\dots}}2 {µ}{{\textmu}}1 {€}{{\texteuro}}1 {°}{${}^{\circ}$}1 %
+}
+\lstloadlanguages{Java,XML,C++,PHP,command.com,make,Python}
+
+\setcounter{secnumdepth}{-2}
+\setcounter{tocdepth}{1}
+
+%--------------------------------------------------------[ Template Commands ]--
+
+\definecolor{dclrfootgraybright}{rgb}{0.7,0.7,0.7}
+\definecolor{dclrfootgraymedium}{rgb}{0.4,0.4,0.4}
+\definecolor{dclrlinktext}{rgb}{0.0,0.5,0.5}
+
+\newcommand{\dmancopyrightoptionalnl}{}
+\newcommand{\dmancopyright}{
+	Export created with Ma\_Sys.ma D5Man, \dmancopyrightoptionalnl
+	Copyright (c) 2015 Ma\_Sys.ma.        \dmancopyrightoptionalnl
+	For further info send an e-mail to {\ttfamily Ma\_Sys.ma@web.de}.
+}
+
+% http://tex.stackexchange.com/questions/9866/latest-advice-on-the-euro-symbol
+\let\texteuro\euro
+
+\newcommand{\mares}{TBD}
+
+\newenvironment{dsection}[1]{\section{#1}}{} 
+
+\newenvironment{dsubsection}[1]{\subsection{#1}}{} 
+
+% TODO ASSOC DESCRIPTION
+\newcommand\dsectionseparator[1]{\part{Section #1}}
+
+% starting code / ending code
+\lstnewenvironment{dcode}{}{}
+
+\newenvironment{dtable}{%
+	\begin{table}[htbp]
+		\centering
+}{%
+	\end{table}
+}
+
+\newcommand{\cmd}[1]{{\ttfamily#1}}
+
+\newenvironment{dtabular}{%
+	\begin{tabular}{llllllllllllllllllll}
+		\toprule
+}{%
+		\bottomrule
+	\end{tabular}
+}
+
+\newcommand{\pro}[0]{\color{green}$\blacktriangle$\color{black}}
+\newcommand{\con}[0]{\color{red}$\blacktriangledown$\color{black}}
+
+\newcommand{\macurrentlistitem}{N\_INIT}
+\newcommand{\macurrentlisttitle}{N\_INIT}
+\newcommand{\macurrentitemprefix}{nosep}
+\newcommand{\ditem}{\ifdefempty{\macurrentitemprefix}{}{\item[]~
+					\renewcommand{\macurrentitemprefix}{}}
+					\ifdefempty{\macurrentlistitem}{\item 
+					}{\item[\macurrentlistitem] }}
+
+\newcommand{\magenericlist}[1]{\renewcommand{\macurrentlistitem}{#1}}
+
+\newenvironment{dlistgroup}[0]{\begin{description}[style=nextline]
+			\setlist{nosep,leftmargin=0cm}}{\end{description}}
+\newcommand{\macurrentlistapplytitle}[1]{\renewcommand{\macurrentlisttitle}{#1}
+		\item[\macurrentlisttitle]\ifdefempty{\macurrentlisttitle}{
+		\renewcommand{\macurrentitemprefix}{}}{
+		\renewcommand{\macurrentitemprefix}{1}}}
+\newcommand{\resetcurrentlistmodifier}{\setlist{nosep}}
+% TODO z REDUNDANT AND DESCRIPTION LIST IS VERY HACKY!
+\newenvironment{dlistdesc}[1]{\macurrentlistapplytitle{#1}\magenericlist{~}
+		\begin{itemize}\resetcurrentlistmodifier}{\end{itemize}}
+\newenvironment{dlistpro}[1]{\macurrentlistapplytitle{#1}\magenericlist{\pro}
+		\begin{itemize}\resetcurrentlistmodifier}{\end{itemize}}
+\newenvironment{dlistcon}[1]{\macurrentlistapplytitle{#1}\magenericlist{\con}
+		\begin{itemize}\resetcurrentlistmodifier}{\end{itemize}}
+\newenvironment{dlistnum}[1]{\macurrentlistapplytitle{#1}\magenericlist{}
+		\begin{enumerate}\resetcurrentlistmodifier}{\end{enumerate}}
+\newenvironment{dlistul}[1]{\macurrentlistapplytitle{#1}\magenericlist{}
+		\begin{itemize}\resetcurrentlistmodifier}{\end{itemize}}
+
+\newcommand{\dlink}[1]{{\color{dclrlinktext}#1}}
+
+\makeatletter
+% make images have a maximum width but allow them not to be the whole page width
+\def\maxwidth#1{\ifdim\Gin@nat@width>#1 #1\else\Gin@nat@width\fi}
+
+% Ma Code Assoc VIM -> LaTeX (if any)
+% http://stackoverflow.com/questions/963997/lookup-table-in-latex
+\newcommand\macass[2]{\@namedef{macodeassoc-#1}{\lstset{language={#2}}}}
+\newcommand\code[1]{\@ifundefined{macodeassoc-#1}{}{\@nameuse{macodeassoc-#1}}}
+\makeatother
+
+\newcommand{\img}[3][1.0]{%
+	\begin{figure}[htbp]
+		\centering
+		{\def\_{_}\includegraphics[width=\maxwidth{#1\linewidth}]
+								{\mares#2}}
+		\caption{#3}
+	\end{figure}
+}
+
+\newcommand{\macurrentlang}{}
+\newcommand{\macurrentpagedescr}{}
+\newcommand{\macurrentpagename}{}
+\newcommand{\macurrentcompliance}{}
+\newcommand{\macurrentvinfo}{}
+\newcommand{\macurrentadditionalmetainfo}{}
+
+\newcommand{\dchapstartinfo}
+
+% 1resdir 2section 3name 4description 5compliance 6lang
+% 7[version] 8[copyright] 9[expires]
+\newenvironment{dpage}[9]{%
+	\chapter{#4}
+	\renewcommand{\macurrentlang}{#6}
+	\ifnum\pdfstrcmp{\macurrentlang}{de}=0\selectlanguage{ngerman}\else
+						\selectlanguage{english}\fi
+	\renewcommand{\mares}{#1/}
+	\renewcommand{\macurrentpagedescr}{#4}
+	\renewcommand{\macurrentpagename}{#3(#2)}
+	\renewcommand{\macurrentcompliance}{#5}
+	\renewcommand{\macurrentvinfo}
+			{\if\relax\detokenize{#7}\relax\else{Version #7}\fi}
+	\renewcommand{\macurrentadditionalmetainfo}{\tiny
+		\if\relax\detokenize{#9}\relax\macurrentvinfo\else
+		{\if\relax\macurrentvinfo\relax\else\macurrentvinfo\\[-1.5em]
+		\fi{Expires #9}}\fi
+	}
+	\dchapstartinfo
+}{%
+	% currently nothing
+}
+
+%------------------------------------------------------[ Code Language Table ]--
+
+\macass{java}{Java}
+\macass{xml}{XML}
+\macass{dtd}{XML}              % no dedicated DTD definition available
+\macass{c}{C++}                % simple `C` gives LaTeX error
+\macass{dosbatch}{command.com}
+\macass{php}{PHP}
+\macass{make}{make}
+\macass{python}{Python}
+% \macass{asm}{Assembler} % TODO DOES NOT WORK
+
+%--------------------------------------------------------------[ Page Layout ]--
+
+\clearscrheadfoot % Koma-Script Documentation p. 231
+\pagestyle{scrheadings}
+\ihead[\textup{\macurrentpagedescr}]{\textup{\macurrentpagedescr}}
+\newcommand{\maheadericoninfo}{
+			\begin{minipage}[b]{0.2\linewidth}
+				\begin{flushright}\textup{\tiny
+				\macurrentlang\\[-1.5em]\macurrentcompliance}
+				\end{flushright}
+			\end{minipage}\,\begin{minipage}[t]{0.4cm}
+				\includegraphics[width=\linewidth]{masysmaicon}
+			\end{minipage}}
+\ohead[\maheadericoninfo]{\maheadericoninfo}
+
+\ifoot[\textup{\small\macurrentadditionalmetainfo}]
+				{\textup{\small\macurrentadditionalmetainfo}}
+\cfoot[\textup{\ttfamily\macurrentpagename}]
+				{\textup{\ttfamily\macurrentpagename}}
+\ofoot[\pagemark]{\pagemark}
+
+\newcommand\masepline{{\color{dclrfootgraybright}\rule{\linewidth}{0.1pt}}}
+\newcommand\mabotcprght{{\color{dclrfootgraymedium}\dmancopyright}}
+
+\setfootbotline[\linewidth]{0pt}[\begin{minipage}{\linewidth}\centering
+		\vspace{0.5cm}\masepline\\\tiny\mabotcprght\end{minipage}]
+
+%-----------------------------------------------------------[ Begin Document ]--
+
+\begin{document}
+
+\selectlanguage{english} % change to english for toc etc.
+
+\makeatletter
+\@ifundefined{notoc}{
+\begin{center}
+	\includegraphics[width=0.7\linewidth]{logo_v2}
+
+	\medskip
+	\renewcommand\dmancopyrightoptionalnl{\\}
+	\dmancopyright
+	\renewcommand\dmancopyrightoptionalnl{}
+\end{center}
+% Allows us to write something before the table of contents
+\let\clearpagebak\clearpage
+\let\clearpage\relax
+\tableofcontents
+\let\clearpage\clearpagebak
+\clearpage
+}{}
+\makeatother
+
+% data appended below this line

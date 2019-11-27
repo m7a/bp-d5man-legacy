@@ -1,0 +1,15 @@
+static void parse_preword(parser* p);
+static void parse_inword(parser* p);
+static void parse_callback_after_substitution(parser* p, char* str, char isem);
+static char parse_is_soft_word_end_for_symbols(char* str);
+static char parse_is_soft_word_end_for_rest(char* str);
+static void (*parse_get_symbol_function(parser* p, char* str))(void* data);
+static void parse_callback_after_exponentiation(parser* p, char* str);
+static char parse_is_inword_end_of_emphasis(parser* p);
+static void parse_escape_inword(parser* p);
+static void parse_pot_start_excl(parser* p);
+static void parse_pot_start_excl_failed(parser* p);
+static void parse_pot_end_excl(parser* p);
+static void parse_pot_end_excl_failed(parser* p);
+static void parse_inword_potential_sep(parser* p);
+static void parse_preword_pot_empty_sym(parser* p);

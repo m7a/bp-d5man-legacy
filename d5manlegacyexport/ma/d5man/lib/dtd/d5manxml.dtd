@@ -1,0 +1,114 @@
+<!--
+	Ma_Sys.ma D5Man XML Conversion/Representation DTD 1.1.1.1,
+	Copyright (c) 2014, 2015, 2016 Ma_Sys.ma.
+	For further info send an e-mail to Ma_Sys.ma@web.de.
+-->
+
+<!-- ............................................................... General -->
+
+<!ELEMENT d5man (page+)> <!-- a set of one or more page -->
+<!ATTLIST d5man format_ver CDATA #FIXED "1.1.0.0">
+<!ELEMENT page (meta, section+)> <!-- a single page -->
+<!ATTLIST page prefix CDATA "../">
+
+<!--
+	Hint: All attributes and elements starting with intermediate_ are only
+	supported as a result produced by XSLT stylesheets for D5Man Import.
+	Other D5Man programs do not support them and it is considered an error
+	if such tags/attributes are put into D5Man programs which are not part
+	of the D5Man Import framework.
+-->
+
+<!ENTITY % d5manblock  "section | table | lg | codeblock | par | img">
+<!ENTITY % d5maninline "#PCDATA | q | exp | em | c | link | sym | shortcut |
+			tex | raw_xml | math |
+			intermediate_link | intermediate_anchor">
+
+<!-- .................................................................. Meta -->
+
+<!ELEMENT meta (kv+, tex?, raw_xml?)> <!-- encloses the meta section -->
+	<!ELEMENT kv EMPTY> <!-- key/value assoc -->
+		<!ATTLIST kv k NMTOKEN #REQUIRED>
+		<!ATTLIST kv v CDATA   #REQUIRED>
+	<!ELEMENT tex (#PCDATA)>     <!-- raw LaTeX -->
+	<!ELEMENT raw_xml (#PCDATA)> <!-- may be used to embed foreign XML. -->
+
+<!-- ........................................................... d5manblock -->
+
+<!ELEMENT section (%d5maninline; | %d5manblock;)*>
+	<!ATTLIST section title CDATA #REQUIRED>
+
+<!ELEMENT table (tf+, tnl, tms?)*>
+	<!ATTLIST table title CDATA #IMPLIED>
+	<!ELEMENT tf (%d5maninline;)*>  <!-- table field         -->
+	<!ELEMENT tnl EMPTY>            <!-- table newline       -->
+	<!ELEMENT tms EMPTY>            <!-- table mid separator -->
+
+<!ELEMENT lg (lt?, list)*>
+	<!ELEMENT lt (%d5maninline;)*>  <!-- list title (description) -->
+	<!ELEMENT list (i+)>
+		<!ATTLIST list type (desc | pro | con | num | ul) "desc">
+		<!ELEMENT i (%d5maninline; | list)*> <!-- list item -->
+
+<!ELEMENT codeblock (#PCDATA)> <!-- xml:space = preserve! -->
+	<!ATTLIST codeblock xml:space CDATA #FIXED "preserve">
+
+<!ELEMENT par EMPTY> <!-- marks a paragraph boundary -->
+
+<!--
+	The img element is currently considered an intermediate-element only
+	valid within d5manimport contexts. This may change if D5Man2XML is
+	changed to create this element. D5Man Export does not currently
+	support this element.
+-->
+<!ELEMENT img (%d5maninline;)*>
+<!--
+	This is required whenever img appears in XML documents to be processed
+	outside d5manimport (i.e. when no intermediat_path is set).
+	Otherwise it is optional to give a hint for the resource name.
+	This does not contain the file extension.
+-->
+<!ATTLIST img name CDATA #IMPLIED>
+<!ATTLIST img wscale CDATA "1.0"> <!-- X\linewidth ... currently ignored -->
+<!--
+	this is required if img is part of intermediate XML and associated w/
+	a resource to be copied.
+-->
+<!ATTLIST img intermediate_path CDATA #IMPLIED>
+
+<!-- .......................................................... d5maninline -->
+
+<!ELEMENT q (%d5maninline;)*> <!-- quotation -->
+	<!ATTLIST q lang (de | en) "de">
+
+<!ELEMENT exp EMPTY> <!-- powers, e.g. 2^3 -->
+	<!ATTLIST exp base     CDATA #REQUIRED>
+	<!ATTLIST exp exponent CDATA #REQUIRED>
+
+<!ELEMENT em (%d5maninline;)*> <!-- emphasis -->
+
+<!ELEMENT c (#PCDATA)> <!-- inline code -->
+
+<!ELEMENT link EMPTY>
+	<!ATTLIST link title   CDATA #IMPLIED> <!-- link title/page name   -->
+	<!ATTLIST link section CDATA #IMPLIED> <!-- section for page links -->
+	<!ATTLIST link url     CDATA #IMPLIED> <!-- url for external links -->
+
+<!ELEMENT sym EMPTY> <!-- symbol -->
+	<!ATTLIST sym v (half_space | space_forced | rightarrow1 | rightarrow2 |
+			leftarrow | dots | smiley | math_in | dash |
+			exclamation) #REQUIRED>
+	<!ATTLIST sym raw CDATA #IMPLIED> <!-- raw representation e.g. UTF-8 -->
+
+<!ELEMENT shortcut (key+)>
+	<!ELEMENT key EMPTY>
+		<!ATTLIST key x CDATA #REQUIRED>
+
+<!ELEMENT math (#PCDATA)> <!-- tex-type math -->
+
+<!ELEMENT intermediate_link EMPTY>
+<!ATTLIST intermediate_link target_file CDATA #REQUIRED>
+<!ATTLIST intermediate_link title CDATA #REQUIRED>
+<!ELEMENT intermediate_anchor EMPTY>
+<!ATTLIST intermediate_anchor assoc (top | ignore) "top">
+<!ATTLIST intermediate_anchor name CDATA #REQUIRED> <!-- w/o # -->

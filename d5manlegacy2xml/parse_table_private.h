@@ -1,0 +1,15 @@
+static void parse_table_or_code_end_of_unknown_line(parser* p);
+static void parse_move_indentation_to_x(parser* p, int start);
+static char* parse_strcpy(char* dest, char* src);
+static char parse_check_for_table(char* str);
+static void parse_table_or_code_line_2(parser* p);
+static void parse_begin_table_titled(parser* p);
+static void parse_table_go_code(parser* p);
+static void parse_table_code_sub(parser* p, int start_prev);
+static void parse_table_or_code_l2s(parser* p);
+static void parse_table_field_begin(parser* p);
+static int parse_reverse_count_delta_indentation(parser* p);
+static void parse_table_mid_sep_or_end(parser* p);
+static void parse_table_first_sep_space(parser* p);
+static void parse_table_skip_spaces(parser* p);
+static void parse_table_post(parser* p);

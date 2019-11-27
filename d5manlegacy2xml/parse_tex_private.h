@@ -1,0 +1,10 @@
+static void parse_tex_begin(parser* p);
+static void parse_tex_math(parser* p);
+static char is_prev_at_begin(parser* p);
+static void parse_tex_math_pend(parser* p);
+static void parse_bak_and_return_to_mode(parser* p, char bak, int mode);
+static void parse_tex_pot_html(parser* p);
+static void parse_tex_html(parser* p);
+static void parse_tex_html_pend1(parser* p);
+static void parse_tex_html_pend2(parser* p);
+static void parse_tex_main(parser* p);
