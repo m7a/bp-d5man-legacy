@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="build">
+
+<!-- APPLICATION METADATA -->
+<property name="mdpc.name"    value="mdvl-d5man-legacy"/>
+<property name="mdpc.section" value="misc"/>
+<property name="mdpc.descrs"  value="D5Man Legacy"/>
+<property name="mdpc.arch"    value="any"/>
+<property name="mdpc.cpyear"  value="2014--2019"/>
+<property name="mdpc.descrl">
+ D5Man Legacy is the first attempt to create a comprehensive knowledge storage.
+ It failed due to being overly complex. This package provides one of the most
+ important components of the legacy D5Man: It's export. It is reduced in
+ functionality to avoid unnecessary complexity and focueses on the ability
+ to convert legacy documents to PDF files.
+</property>
+
+<property name="mdpc.file.install">
+d5manlegacyconvert.pl /usr/bin/d5manlegacyconvert
+d5manlegacycommonres /usr/share/mdvl-d5man-legacy
+d5manlegacy2xml/d5manlegacy2xml /usr/bin
+d5manlegacyexport/d5manlegacyexport.jar /usr/share/java
+d5manlegacyioresolve/d5manlegacyioresolve /usr/bin
+stylesheets /usr/share/doc/mdvl-d5man-legacy
+README.md /usr/share/doc/mdvl-d5man-legacy
+</property>
+
+<!-- PART OF TPL HERE FOR USE IN BUILD -->
+<property environment="env"/>
+<condition property="masysma.internal.includepath.rel" value="${env.MDVL_CI_PHOENIX_ROOT}" else=".."><isset property="env.MDVL_CI_PHOENIX_ROOT"/></condition>
+<property name="masysma.internal.includepath" location="${masysma.internal.includepath.rel}"/>
+
+<!-- SPECIFIC BUILD TODO THIS IS RECURSIVE ANT SHOULD BE SUPPORTED IN TEMPLATE! -->
+<target name="build">
+	<ant dir="d5manlegacy2xml"/>
+	<ant dir="d5manlegacyioresolve"/>
+	<ant dir="d5manlegacyexport"    target="jar"/>
+</target>
+
+<target name="clean">
+	<ant dir="d5manlegacy2xml"      target="clean"/>
+	<ant dir="d5manlegacyioresolve" target="clean"/>
+	<ant dir="d5manlegacyexport"    target="clean"/>
+</target>
+
+<target name="dist-clean" depends="clean">
+	<ant dir="d5manlegacy2xml"      target="dist-clean"/>
+	<ant dir="d5manlegacyioresolve" target="dist-clean"/>
+	<ant dir="d5manlegacyexport"    target="dist-clean"/>
+</target>
+
+<!-- CI INTEGRATION -->
+<target name="package_triggered" depends="package">
+	<property name="masysma.ci.trigger"     value="newver"/>
+</target>
+<target name="package_triggered_i386" depends="package">
+	<property name="masysma.ci.trigger"     value="newver"/>
+	<property name="masysma.ci.runenv"      value="ssh"/>
+	<property name="masysma.ci.runenv.name" value="i386"/>
+</target>
+
+<!-- TPL IMPORT (PARTIALLY GIVEN ABOVE) -->
+<property name="masysma.internal.loadpath" value="${masysma.internal.includepath}/co-build/ant-build-template.xml"/>
+<condition property="masysma.internal.load" value="file://${masysma.internal.loadpath}" else="https://raw.githubusercontent.com/m7a/co-build/master/ant-build-template.xml"><resourceexists><file file="${masysma.internal.loadpath}"/></resourceexists></condition>
+<import><url url="${masysma.internal.load}"/></import>
+
+</project>
