@@ -40,14 +40,14 @@ my $newr = File::Temp->newdir();
 
 my $exportjar = "./d5manlegacyexport/d5manlegacyexport.jar";
 my %conf = (
-	common_res      => "./d5manlegacycommonres",
+	common_res      => "/usr/share/mdvl/d5man-legacy/d5manlegacycommonres",
 	compl_a         => "$newr/root", # XML: io_compl_a / io_compl_b
 	compl_b         => "$newr/root",
-	d5man2xml       => "./d5manlegacy2xml/d5manlegacy2xml",
+	d5man2xml       => "d5manlegacy2xml",
 	db_search       => "$newr/d5man.conf", # XML: dbloc_real
 	db_sync         => ":",
 	file_root       => "$newr/root",
-	io_resolver     => "./d5manlegacyioresolve/d5manlegacyioresolve",
+	io_resolver     => "d5manlegacyioresolve",
 	media_converter => "/usr/bin/rsvg-convert -f pdf /dev/stdin",
 	vim             => "/usr/bin/vim",
 	vim_plugin      => "$newr/d5man.conf",
