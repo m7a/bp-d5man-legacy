@@ -291,17 +291,15 @@ Space control
 
 ### Symbol replacement
 
-_TODO USE UNICODE HERE_
-
 Text         LaTeX               Symbol
 -----------  ------------------  ----------
 `...`        `\\dots`            ...
-`=>`         `$\\Rightarrow$`    =>
-`->`         `$\\rightarrow$`    ->
-`<-`         `$\\leftarrow$`     <-
+`=>`         `$\\Rightarrow$`    ⇒
+`->`         `$\\rightarrow$`    →
+`<-`         `$\\leftarrow$`     ←
 `2^3`        `$2^3$`             2³
-` :) `       (smiley)            a :) b
-`3 e {4,5}`  `$3\\in\\{3,5\\}$`  3 e \{3,5\}
+` :) `       (smiley)            :)
+`3 e {4,5}`  `$3\\in\\{3,5\\}$`  3 ∈ \{3,5\}
 
 ## Universal External Markup
 

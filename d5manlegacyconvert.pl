@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 my $copyright_and_usage = <<'PLEASE_NOTE';
-Ma_Sys.ma D5Man Legacy PDF Export 1.0.0, Copyright (c) 2019 Ma_Sys.ma.
+Ma_Sys.ma D5Man Legacy PDF Export 1.0.1, Copyright (c) 2019 Ma_Sys.ma.
 For further info send an e-mail to Ma_Sys.ma@web.de.
 
 USAGE12 d5manlegacyconvert file.d5i [opt]
@@ -23,7 +23,7 @@ require IPC::Run3;             # libipc-run3-perl
 require File::Basename;
 require Cwd; # abs_path
 
-use Data::Dumper 'Dumper'; # debug only
+#use Data::Dumper 'Dumper'; # debug only
 
 #------------------------------------------------------------------[ General ]--
 
@@ -38,16 +38,16 @@ my $newr = File::Temp->newdir();
 
 #------------------------------------------------------------[ Configuration ]--
 
-my $exportjar = "./d5manlegacyexport/d5manlegacyexport.jar";
+my $exportjar = "/usr/share/java/d5manlegacyexport.jar";
 my %conf = (
-	common_res      => "/usr/share/mdvl/d5man-legacy/d5manlegacycommonres",
+	common_res      => "/usr/share/mdvl-d5man-legacy/d5manlegacycommonres",
 	compl_a         => "$newr/root", # XML: io_compl_a / io_compl_b
 	compl_b         => "$newr/root",
-	d5man2xml       => "d5manlegacy2xml",
+	d5man2xml       => "/usr/bin/d5manlegacy2xml",
 	db_search       => "$newr/d5man.conf", # XML: dbloc_real
 	db_sync         => ":",
 	file_root       => "$newr/root",
-	io_resolver     => "d5manlegacyioresolve",
+	io_resolver     => "/usr/bin/d5manlegacyioresolve",
 	media_converter => "/usr/bin/rsvg-convert -f pdf /dev/stdin",
 	vim             => "/usr/bin/vim",
 	vim_plugin      => "$newr/d5man.conf",
@@ -104,8 +104,10 @@ if(defined($d5mankv{attachments}) and
 
 my $tags        = join(" ", map { "<tag v=\"$_\"/>" }
 					split(/ /, $d5mankv{tags}));
-my $attachments = join(" ", map { "<attachment name=\"$_\" modified=\"0\"/>" }
-					split(/ /, $d5mankv{attachments}));
+my $attachments = defined($d5mankv{attachments})? ("<attachments>".join(" ", map
+				{ "<attachment name=\"$_\" modified=\"0\"/>" }
+				split(/ /, $d5mankv{attachments})).
+				"</attachments>"): "";
 my $conf_xml    = join(" ", map {
 	if($_ eq "file_root") {
 		""; # skip
@@ -131,7 +133,7 @@ my $xml_input = <<"EOF";
 				modified="0" lang="$d5mankv{lang}"
 				compliance="$d5mankv{compliance}" md5="0">
 			<tags>$tags</tags>
-			<attachments>$attachments</attachments>
+			$attachments
 		</page>
 	</pages>
 </tables>
@@ -147,7 +149,6 @@ if(($argc == 2) or ($mode eq "xslt")) {
 } elsif($argc == 4) {
 	push @basic_cmd, "-c", $ARGV[2]
 }
-print Dumper(@basic_cmd);
 IPC::Run3::run3(\@basic_cmd, \$xml_input);
 if($? != 0) {
 	die("Failed to invoke $exportjar. See error above.\n");

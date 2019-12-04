@@ -1,3 +1,9 @@
+mdvl-d5man-legacy (1.0.1) stable; urgency=medium
+
+  * Fix use of uninitialized variable.
+
+ -- Linux-Fan, Ma_Sys.ma <Ma_Sys.ma@web.de>  Wed, 04 Dec 2019 09:40:07 +0100
+
 mdvl-d5man-legacy (1.0.0) stable; urgency=medium
 
   * Package created with MDPC 2
