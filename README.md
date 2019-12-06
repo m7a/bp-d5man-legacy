@@ -7,6 +7,7 @@ lang: en-US
 author: ["Linux-Fan, Ma_Sys.ma (Ma_Sys.ma@web.de)"]
 keywords: ["d5man", "legacy", "d5manexport", "d5man2xml", "format", "d5man/format"]
 x-masysma-version: 1.0.0
+x-masysma-repository: https://www.github.com/m7a/bp-d5man-legacy
 x-masysma-owned: 1
 x-masysma-copyright: |
   Copyright (c) 2014--2019 Ma_Sys.ma.
@@ -105,28 +106,27 @@ Run the installed package by invoking
 If the package is to be run without being installed, provide the following lines
 in `d5manlegacyconvert.pl`:
 
-	my %conf = (
-		common_res      => "./d5manlegacycommonres",
-		compl_a         => "$newr/root", # XML: io_compl_a / io_compl_b
-		compl_b         => "$newr/root",
-		d5man2xml       => "./d5manlegacy2xml/d5manlegacy2xml",
-		db_search       => "$newr/d5man.conf", # XML: dbloc_real
-		db_sync         => ":",
-		file_root       => "$newr/root",
-		io_resolver     => "./d5manlegacyioresolve/d5manlegacyioresolve",
-		media_converter => "/usr/bin/rsvg-convert -f pdf /dev/stdin",
-		vim             => "/usr/bin/vim",
-		vim_plugin      => "$newr/d5man.conf",
-	);
+~~~{.perl}
+my %conf = (
+	common_res      => "./d5manlegacycommonres",
+	compl_a         => "$newr/root", # XML: io_compl_a / io_compl_b
+	compl_b         => "$newr/root",
+	d5man2xml       => "./d5manlegacy2xml/d5manlegacy2xml",
+	db_search       => "$newr/d5man.conf", # XML: dbloc_real
+	db_sync         => ":",
+	file_root       => "$newr/root",
+	io_resolver     => "./d5manlegacyioresolve/d5manlegacyioresolve",
+	media_converter => "/usr/bin/rsvg-convert -f pdf /dev/stdin",
+	vim             => "/usr/bin/vim",
+	vim_plugin      => "$newr/d5man.conf",
+);
+~~~
 
 This shows a definition of the binaries relative to the present working
 directory which may suffice if `d5manlegacyconvert.pl` is invoked from the
 repository's directory. Although never tested, replacing the calls to
 `/usr/bin/vim` etc. with suitable Windows paths may make this functionality
 available on Windows as well (`vim` is only ever called for XHTML exports).
-
-In case the legacy D5Man binaries are part of the `$PATH` it may suffice to only
-configure `common_res`.
 
 ## Usage
 
