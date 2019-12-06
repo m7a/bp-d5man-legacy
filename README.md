@@ -7,6 +7,7 @@ lang: en-US
 author: ["Linux-Fan, Ma_Sys.ma (Ma_Sys.ma@web.de)"]
 keywords: ["d5man", "legacy", "d5manexport", "d5man2xml", "format", "d5man/format"]
 x-masysma-version: 1.0.0
+x-masysma-owned: 1
 x-masysma-copyright: |
   Copyright (c) 2014--2019 Ma_Sys.ma.
   For further info send an e-mail to Ma_Sys.ma@web.de.
@@ -76,14 +77,16 @@ Compilation and Dependencies
 ## Dependencies
 
 ### Building
- * Ant
- * GCC (C89 compilation)
+  * Ant
+  * GCC (C89 compilation)
+
 ### Building and Running
- * Java 7 (or higher, tested with Java 8)
+  * Java 7 (or higher, tested with Java 8)
+
 ### Running
- * POSIX `make`
- * LaTeX
- * Perl
+  * POSIX `make`
+  * LaTeX
+  * Perl
 
 ## Compilation
 
@@ -163,22 +166,22 @@ The D5Man format has been designed to overcome many of the existing limitations.
 For each format, the major disadvantages are listed below
 
 ### Manpages
- * limited formatting options
- * not to be edited by the user
- * unreadable markup language
- * sections are designed to be used specifically with UNIX systems
+  * limited formatting options
+  * not to be edited by the user
+  * unreadable markup language
+  * sections are designed to be used specifically with UNIX systems
 
 ### Websites (XHTML+CSS)
- * no simple means of rendering (Webbrowser with 300 MiB or more RAM required)
- * focuses too hard on layout, too little on content
- * the markup is not nice to read
+  * no simple means of rendering (Webbrowser with 300 MiB or more RAM required)
+  * focuses too hard on layout, too little on content
+  * the markup is not nice to read
 
 ### LaTeX
- * rendering on textual devices is theorethically possible but there exist few
-   tools to handle this situation
- * not useful for web based applications
- * difficult to process automatically (consider multiple pdfLaTeX runs for
-   instance)
+  * rendering on textual devices is theorethically possible but there exist few
+    tools to handle this situation
+  * not useful for web based applications
+  * difficult to process automatically (consider multiple pdfLaTeX runs for
+    instance)
 
 Concerning the difficult readability of known markup formats, many alternatives
 have emerged. Among the most popular is Markdown which is focused on websites.
