@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="build">
+	<target name="build">
+		<copy file="d5manlegacyconvert.pl"
+						tofile="d5manlegacyconvert"/>
+	</target>
+	<target name="dist-clean">
+		<delete file="d5manlegacyconvert"/>
+	</target>
+	<!-- compat only -->
+	<target name="clean"/>
+</project>
