@@ -462,8 +462,8 @@ Finally, this test document concludes with a table:
       ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
         Legacy Original       Legacy Distribution     New Distribution
       +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        `d5manui`             ~                       `d5mantui` (Java)
-        `d5manserver`         ~                       `d5manapi` (Erlang)
+        `d5manui`             ~                       `d5mantui`
+        `d5manserver`         ~                       `d5manapi`
         `d5man2xml`           `d5manlegacy2xml`       ~
         `d5mancompliancedup`  ~                       ~
         `d5mandbdelete`       ~                       ~
@@ -471,7 +471,8 @@ Finally, this test document concludes with a table:
         `d5mandbsync`         ~                       ~
         `d5mandelete`         ~                       ~
         `d5mandetach`         ~                       ~
-        `d5manexport`         `d5manlegacyconvert`    ~
+        `d5manexport`         `d5manlegacyconvert`    `d5manexportpdf`
+        ~                     ~                       `d5manexporthtml`
         `d5manexportautoftp`  ~                       ~
         `d5manimport`         ~                       ~
         `d5manioresolve`      `d5manlegacyioresolve`  ~
