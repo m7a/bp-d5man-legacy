@@ -47,7 +47,7 @@
 			<value-of select="@v"/><text>&#x0a;</text></when>
 <when test="@k='copyright'"><text>x-masysma-copyright: </text>
 			<value-of select="@v"/><text>&#x0a;</text></when>
-<when test="@k='version'"><text>version: </text>
+<when test="@k='version'"><text>x-masysma-version: </text>
 			<value-of select="@v"/><text>&#x0a;</text></when>
 <when test="@k='tags'"><text>keywords: [&quot;</text>
 			<value-of select="@v"/><text>&quot;]&#x0a;</text></when>
