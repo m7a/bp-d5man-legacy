@@ -8,6 +8,7 @@ author: ["Linux-Fan, Ma_Sys.ma (Ma_Sys.ma@web.de)"]
 keywords: ["d5man", "legacy", "d5manexport", "d5man2xml", "format", "d5man/format"]
 x-masysma-version: 1.0.0
 x-masysma-repository: https://www.github.com/m7a/bp-d5man-legacy
+x-masysma-website: https://masysma.lima-city.de/32/d5man_legacy.xhtml
 x-masysma-owned: 1
 x-masysma-copyright: |
   Copyright (c) 2014--2019 Ma_Sys.ma.
