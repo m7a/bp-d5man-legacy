@@ -1,3 +1,9 @@
+mdvl-d5man-legacy (1.0.3) stable; urgency=medium
+
+  * Add missing dependency for libipc-run3-perl.
+
+ -- Linux-Fan, Ma_Sys.ma <Ma_Sys.ma@web.de>  Fri, 05 Feb 2021 22:42:16 +0100
+
 mdvl-d5man-legacy (1.0.2) stable; urgency=medium
 
   * Add trigger for armhf build.

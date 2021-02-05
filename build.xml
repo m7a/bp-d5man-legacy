@@ -7,6 +7,7 @@
 <property name="mdpc.descrs"  value="D5Man Legacy"/>
 <property name="mdpc.arch"    value="any"/>
 <property name="mdpc.cpyear"  value="2014--2019"/>
+<property name="mdpc.depends" value="libipc-run3-perl"/>
 <property name="mdpc.descrl">
  D5Man Legacy is the first attempt to create a comprehensive knowledge storage.
  It failed due to being overly complex. This package provides one of the most
