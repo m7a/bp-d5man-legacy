@@ -1,7 +1,7 @@
 %---------------------------------------------------------------------[ Meta ]--
 
-% Ma_Sys.ma D5Man LaTeX Export Template 1.0.9
-% Copyright (c) 2015, 2016, 2017, 2018, 2019 Ma_Sys.ma.
+% Ma_Sys.ma D5Man LaTeX Export Template 1.0.10
+% Copyright (c) 2015, 2016, 2017, 2018, 2019, 2021 Ma_Sys.ma.
 % For further info send an e-mail to Ma_Sys.ma@web.de.
 
 \documentclass[paper=a4,DIV9,12pt,abstracton,headings=normal,
@@ -24,7 +24,6 @@
 \usepackage{color}
 \usepackage{tikz}
 \usepackage{dashbox}  % \dbox
-% TODO z A WORKAROUND TO PREVENT THINGS LIKE INDENTED PARAGRAPH AFTER LIST. WE JUST DISABLE THEM ALL. IT WOULD BE BETTER IF IT WERE POSSIBLE TO RE-ENABLE INDENTED PARAGRAPHS FOR ALL THE PLACES WE WANT THEM AND KEEP THEM DISABLED BETWEEN OTHER ``OBJECTS''
 \usepackage{parskip}
 \usepackage{wasysym}   % smileys
 \usepackage{eurosym}   % €
@@ -36,7 +35,7 @@
 %\usepackage{textalpha} % greek text
 %\usepackage{paralist}  % compactenum / compactitem
 \usepackage{etoolbox}  % ifdefempty etc.
-\usepackage{scrpage2}  % header/footer
+\usepackage{scrlayer-scrpage} % header/footer (used to be scrpage2!)
 \usepackage{mathtools} % \mathclap
 \usepackage{bbold}     % Make \mathbb{1} work.
 \usepackage{listings}
